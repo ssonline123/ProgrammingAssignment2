@@ -1,15 +1,38 @@
-## Put comments here that give an overall description of what your
-## functions do
+# Coursera Course 2 week 3 assignment - lexical scoping
 
-## Write a short comment describing this function
-
-makeCacheMatrix <- function(x = matrix()) {
-
+#function to make a cache matrix
+makeCacheMatrix <- function (inp_matrix = matrix())
+{
+        inv_matrix <- NULL
+        set <- function (y) {
+                inp_matrix <<- y
+                inv_matrix <<- NULL
+                
+        }
+        get <- function()
+                inp_matrix
+        setinv <-
+                function (inv_matrix_1)
+                        inv_matrix <<- inv_matrix_1
+        getinv <- function()
+                inv_matrix
+        list(
+                get = get,
+                set = set,
+                setinv = setinv,
+                getinv = getinv
+        )
 }
 
-
-## Write a short comment describing this function
-
-cacheSolve <- function(x, ...) {
-        ## Return a matrix that is the inverse of 'x'
+#function to return inverse matrix
+cacheSolve <- function(inp_matrix = matrix(), ...) {
+        inv_matrix <- inp_matrix$getinv()
+        if (!is.null(inv_matrix)) {
+                message("getting cached data")
+                return(inv_matrix)
+        }
+        data <- inp_matrix$get()
+        inv_matrix <- solve(data)
+        inp_matrix$setinv(inv_matrix)
+        inv_matrix
 }
